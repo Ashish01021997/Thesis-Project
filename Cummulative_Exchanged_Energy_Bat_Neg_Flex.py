@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from datetime import datetime, timedelta
 import numpy as np
-import Flexibility_Prosumer_PV_Battery_Grid_Stochastic_2stage_OPT_Battery_Neg_Flex
+#import Flexibility_Prosumer_PV_Battery_Grid_Stochastic_2stage_OPT_Battery_Neg_Flex
 from numpy import random
 import pandas as pd
 
@@ -39,7 +39,6 @@ P_bat_discharging_grid_opt_flex = Bat_Neg_Flex.P_bat_discharging_grid_opt_flex
 
 E_bat_profile = Bat_Neg_Flex.E_bat_profile
 
-
 E_bat_final = E_bat_initial
 
 E_bat_flex_check = np.zeros(iterations + 1)
@@ -55,9 +54,7 @@ t_bat_negative_flex = 0.0
 time_res = 15/60
 
 E_battery_grid_optimum = np.zeros(iterations)
-E_battery_grid_optimum[0] = E_bat_initial
 E_battery_grid_optimum_flex = np.zeros(iterations)
-E_battery_grid_optimum_flex[0] = E_bat_initial
 
 plt.figure(figsize=(12, 6))
 
@@ -159,14 +156,14 @@ for i in range(iterations):
 
        return P_bat_negative_flex[i]
 
-   if i >= 1 and i <= 85:
+   if i <= 85:
 
 
-    E_battery_grid_optimum[i] = E_battery_grid_optimum[i-1] + (abs(P_bat_charging_grid_opt[i-1]) - abs(
-           P_bat_discharging_grid_opt[i-1])) * time_res / 1000
+    E_battery_grid_optimum[i] += (abs(P_bat_charging_grid_opt[i]) - abs(
+           P_bat_discharging_grid_opt[i])) * time_res / 1000
 
-    E_battery_grid_optimum_flex[i] = E_battery_grid_optimum_flex[i-1] + (abs(P_bat_charging_grid_opt_flex[i-1]) - abs(P_bat_discharging_grid_opt_flex[
-                                                                                         i-1])) * time_res / 1000
+    E_battery_grid_optimum_flex[i] += (abs(P_bat_charging_grid_opt_flex[i]) - abs(P_bat_discharging_grid_opt_flex[
+                                                                                         i])) * time_res / 1000
 
     positive_flex = bat_positive_flex()
 

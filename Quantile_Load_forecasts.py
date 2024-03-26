@@ -112,6 +112,16 @@ class Load_Quantiles:
 
  print(df_predictions_load_15min)
 
+ Load_Quantile_Forecasts = np.zeros(96)
+
+ for i in range(96):
+     Load_Quantile_Forecasts[i] = df_predictions_load_15min['fifty_percent_quantile'][i]
+
+ df_load_forecasts = pd.DataFrame(Load_Quantile_Forecasts)
+
+ excel_file_path = "Load_Quantile_Forecast_output.xlsx"  # Specify the path where you want to save the Excel file
+ df_load_forecasts.to_excel(excel_file_path, index=False)
+
  timeframe_15min = np.arange(0, 672, 1)
 
  i = 0

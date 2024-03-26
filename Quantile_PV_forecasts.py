@@ -54,6 +54,17 @@ class PV_Quantiles:
     i += 1
 
 
+  SolarPV_Quantile_Forecasts = np.zeros(96)
+
+  for i in range(96):
+    SolarPV_Quantile_Forecasts[i] = df_predictions_PV['fifty_percent_quantile'][i]
+
+  df_solar_forecasts = pd.DataFrame(SolarPV_Quantile_Forecasts)
+
+  excel_file_path = "SolarPV_Quantile_Forecast_output.xlsx"  # Specify the path where you want to save the Excel file
+  df_solar_forecasts.to_excel(excel_file_path, index=False)
+
+
   print(df_predictions_PV)
 
   plt.title('Quantile Regression PV Forecasts')
